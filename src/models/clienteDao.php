@@ -1,5 +1,5 @@
 <?php 
- require 'Usuario.php';
+ require './src/entities/Cliente.php';
 
 class ClienteDao{
     private $pdo;
@@ -7,7 +7,41 @@ class ClienteDao{
         $this->pdo =$driver;
     }
 
-    public function create($usuario){
+    public function create(){}
+    public function read(){
+      $sql = $this->pdo->query("SELECT * FROM cliente");
+      if($sql->rowCount()>0){
+        $listaUsuarios = array();
+        $allClientes = $sql->fetchAll();
+
+        foreach($allClientes as $clienteDb){
+            $cliente = new Cliente();
+            $cliente->id = $clienteDb['id'];
+            $cliente->nome = $clienteDb['nome'];
+            $cliente->endereco = $clienteDb['endereco'];
+            $cliente->cep = $clienteDb['cep'];
+            $cliente->bairro = $clienteDb['bairro'];
+            $cliente->cpf = $clienteDb['cpf'];
+            $cliente->nascimento = $clienteDb['nascimento'];
+            $cliente->data_vencimento = $clienteDb['data_vencimento'];
+            $cliente->unidade_consumidora = $clienteDb['unidade_consumidora'];
+            $cliente->kwh = $clienteDb['kwh'];
+            $cliente->valor_total = $clienteDb['valor_total'];
+            $listaUsuarios[] = $cliente;
+        }
+        return $listaUsuarios;
+      }
+    }
+    public function update(){}
+    public function delete(){}
+
+
+
+
+
+
+
+    /*public function create($usuario){
         $sql = $this->pdo->prepare("INSERT INTO usuarios (nome,email) VALUES (:nome,:email)");
         $sql->bindValue(':nome',$usuario->getNome());
         $sql->bindValue(':email',$usuario->getEmail());
@@ -72,14 +106,8 @@ class ClienteDao{
         $sql->bindValue(":email",$usuario->getEmail());
         $sql->execute();
 
-    }
-
+    }*/
         
     
 
 }
-
-
-
-
-?>

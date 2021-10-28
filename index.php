@@ -1,42 +1,54 @@
 <?php
 require 'config.php';
+require 'src/models/ClienteDao.php';
 
-$sql = $pdo->query("SELECT * FROM cliente");
- $usuariosDb = $sql->fetchAll();
-
-    foreach($usuariosDb as $dadosDb){
-        print_r($dadosDb['nome']);
-      
-    }
-   
-
-/*$usuarioDao = new UsuariosDao($pdo);
-$lista = $usuarioDao->read();
-
-
+$clienteDao =  new ClienteDao($pdo);
+$listaDeClientes = $clienteDao->read();
 
 ?>
-<a href="crud/create.html">adicionar usuario</a>
-<table border="1" width="100%">
-    <tr>
-        <th>ID</th>
-        <th>NOME</th>
-        <th>EMAIL</th>
-        <th>AÇÕES</th>
-    </tr>
-    <?php foreach($lista as $usuario):?>
-    <tr>
-        <td><?= $usuario->getId();?></td>
-        <td><?= $usuario->getNome();?></td>
-        <td><?= $usuario->getEmail();?></td>
-        <td><a href="crud/update.php?id=<?= $usuario->getId();?>">[Editar]</a>
-            <a href="crud/delete.php?id=<?= $usuario->getId();?>">[Excluir]</a>
-        </td>
-    </tr>
-    <?php endforeach;?>
-    
+<?php require './src/partials/header.php' ?>
+<header class="display-2 headerHome" > Lista De Clientes </header>
+<div class="homeArea">
+<a href="./src/pages/cadastrar.php"><button type="button" class="btn btn-success">Cadastrar Cliente ➕</button></a>
+    <table class="table table-dark table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Cep</th>
+                <th scope="col">Bairro</th>
+                <th scope="col">Cpf</th>
+                <th scope="col">Nascimento</th>
+                <th scope="col">Data Vencimento</th>
+                <th scope="col">Unidade Consumidora</th>
+                <th scope="col">Kwh</th>
+                <th scope="col">Valor Total</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($listaDeClientes as $cliente) : ?>
+                <tr>
+                    <td><?= $cliente->id; ?></td>
+                    <td><?= $cliente->nome; ?></td>
+                    <td><?= $cliente->endereco; ?></td>
+                    <td><?= $cliente->cep; ?></td>
+                    <td><?= $cliente->bairro; ?></td>
+                    <td><?= $cliente->cpf; ?></td>
+                    <td><?= $cliente->nascimento; ?></td>
+                    <td><?= $cliente->data_vencimento; ?></td>
+                    <td><?= $cliente->unidade_consumidora; ?></td>
+                    <td><?= $cliente->kwh; ?></td>
+                    <td><?= $cliente->valor_total; ?></td>
+                    <td>
+                        <a href="./src/actions/update.php?id=<? $cliente->id; ?>"><button type="button" class="btn btn-primary ">Editar</button></a>
+                        <a href="./src/actions/delete.php?id=<? $cliente->id; ?>"><button type="button" class="btn btn-danger">Excluir</button></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
-
-
-</table>*/
-?>
+<?php require './src/partials/footer.php' ?>
