@@ -7,7 +7,16 @@ class ClienteDao{
         $this->pdo =$driver;
     }
 
-    public function create(){}
+    
+    public function create($cliente){
+        $sql = $this->pdo->prepare("INSERT INTO usuarios (nome,endereco) VALUES (:nome,:endereco)");
+        $sql->bindValue(':nome',$cliente->nome);
+        $sql->bindValue(':endereco',$cliente->endereco);
+        $sql->execute();
+
+
+
+    }
     public function read(){
       $sql = $this->pdo->query("SELECT * FROM cliente");
       if($sql->rowCount()>0){

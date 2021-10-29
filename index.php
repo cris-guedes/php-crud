@@ -9,7 +9,7 @@ $listaDeClientes = $clienteDao->read();
 <?php require './src/partials/header.php' ?>
 <header class="display-2 headerHome" > Lista De Clientes </header>
 <div class="homeArea">
-<a href="./src/pages/cadastrar.php"><button type="button" class="btn btn-success">Cadastrar Cliente ➕</button></a>
+<a href="cadastrar.php"><button type="button" class="btn btn-success">Cadastrar Cliente ➕</button></a>
     <table class="table table-dark table-hover table-bordered">
         <thead>
             <tr>

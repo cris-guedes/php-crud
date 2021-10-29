@@ -1,1 +1,68 @@
-<h1>Pagina de cadastro</h1>
+<?php require './src/partials/header.php' ?>
+<header class="display-2 headerCadastro"> Cadastro </header>
+<div class="formArea">
+    <form class="row g-3" method="POST" action="./src/actions/create.php">
+        <div class="col-md-4">
+            <label for="inputNome" class="form-label">Nome</label>
+            <input type="text" name="nome"class="form-control" id="inputNome">
+        </div>
+        <div class="col-md-4">
+            <label for="inputCpf" name="cpf" class="form-label">Cpf</label>
+            <input type="text" class="form-control" id="inputCpf">
+        </div>
+        <div class="col-4">
+            <label for="inputNascimento" name="nascimento" class="form-label">Nascimento</label>
+            <input type="date" class="form-control" id="inputNascimento" >
+        </div>
+        <div class="col-6">
+            <label for="inputEndereco" class="form-label">Endereço</label>
+            <input type="text" name="endereco" class="form-control" id="inputEndereco" >
+        </div>
+        <div class="col-md-6">
+            <label for="inputBairro" class="form-label">Bairro</label>
+            <input type="text" name="bairro" class="form-control" id="inputBairro">
+        </div>
+        <div class="col-md-6">
+            <label for="inputCep" class="form-label">Cep</label>
+            <input type="text" name="cep" class="form-control" id="inputCep">
+        </div>
+        <div class="col-md-6">
+            <label for="inputUnidadeConsumidora" class="form-label">Unidade Consumidora</label>
+            <input type="number" name="unidadeConsumidora" class="form-control" id="inputUnidadeConsumidora">
+        </div>
+       
+        <div class="col-md-4">
+            <label for="inputDataVencimento" class="form-label">Data Vencimento</label>
+            <input type="date" name="dataVencimento" class="form-control" id="inputDataVencimento">
+        </div>
+       
+      
+        <div class="col-md-8">
+            <label for="inputConsumo" class="form-label">Consumo</label>
+            <input type="number" name="consumo" class="form-control" id="inputConsumo">
+        </div>
+        <div class="col-md-12">
+            <label for="inputTotalPagar" class="form-label">Total Pagar</label>
+            <input type="number" name="totalPagar" class="form-control" id="inputTotalPagar">
+        </div>
+        <div class="col-10">
+            <div class="form-radio">
+                <input class="form-radio-input"name="sexo" value="masculino" type="radio" id="inputMasculino">
+                <label class="form-radio-label" for="inputMasculino">
+                    Masculino
+                </label>
+            </div>
+            <div class="form-radio">
+                <input class="form-radio-input" name="sexo" value="feminino" type="radio" id="inputFeminino">
+                <label class="form-radio-label" for="inputFeminino">
+                    Feminino
+                </label>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+    </form>
+</div>
+<?php require './src/partials/footer.php' ?>
