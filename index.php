@@ -1,10 +1,26 @@
 <?php
 require 'config.php';
 require 'src/models/ClienteDao.php';
+require 'src/entities/cliente.php';
 
 $clienteDao =  new ClienteDao($pdo);
-$listaDeClientes = $clienteDao->read();
-
+$allClientes = $clienteDao->read();
+$listaClientes = array();
+foreach($allClientes as $clienteDb){
+    $cliente = new Cliente();
+    $cliente->id = $clienteDb['id'];
+    $cliente->nome = $clienteDb['nome'];
+    $cliente->endereco = $clienteDb['endereco'];
+    $cliente->cep = $clienteDb['cep'];
+    $cliente->bairro = $clienteDb['bairro'];
+    $cliente->cpf = $clienteDb['cpf'];
+    $cliente->nascimento = $clienteDb['nascimento'];
+    $cliente->data_vencimento = $clienteDb['data_vencimento'];
+    $cliente->unidade_consumidora = $clienteDb['unidade_consumidora'];
+    $cliente->kwh = $clienteDb['kwh'];
+    $cliente->valor_total = $clienteDb['valor_total'];
+    $listaClientes[] = $cliente;
+}
 ?>
 <?php require './src/partials/header.php' ?>
 <header class="display-2 headerHome" > Lista De Clientes </header>
@@ -28,7 +44,7 @@ $listaDeClientes = $clienteDao->read();
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($listaDeClientes as $cliente) : ?>
+            <?php foreach ($listaClientes as $cliente) : ?>
                 <tr>
                     <td><?= $cliente->id; ?></td>
                     <td><?= $cliente->nome; ?></td>

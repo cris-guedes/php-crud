@@ -1,5 +1,5 @@
 <?php
-
+require '../entities/cliente.php';
 require '../../config.php';
 require '../models/clienteDao.php';
 
@@ -21,3 +21,4 @@ if (isset($_POST['nome'])) {
     $dao->create($cliente);
 
 }
+header("Location: ../../index.php");

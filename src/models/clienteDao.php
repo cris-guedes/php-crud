@@ -1,14 +1,14 @@
 <?php 
- require '../entities/cliente.php';
+ 
 
 class ClienteDao{
     private $pdo;
-    public function __construct($driver){
+    public function __construct(PDO $driver){
         $this->pdo =$driver;
     }
 
     
-    public function create($cliente){
+    public function create(Cliente $cliente){
 
        /* public $id;
         public $nome;
@@ -42,25 +42,10 @@ class ClienteDao{
    public function read(){
       $sql = $this->pdo->query("SELECT * FROM clientes");
       if($sql->rowCount()>0){
-        $listaUsuarios = array();
-        $allClientes = $sql->fetchAll();
+        $allClientes = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach($allClientes as $clienteDb){
-            $cliente = new Cliente();
-            $cliente->id = $clienteDb['id'];
-            $cliente->nome = $clienteDb['nome'];
-            $cliente->endereco = $clienteDb['endereco'];
-            $cliente->cep = $clienteDb['cep'];
-            $cliente->bairro = $clienteDb['bairro'];
-            $cliente->cpf = $clienteDb['cpf'];
-            $cliente->nascimento = $clienteDb['nascimento'];
-            $cliente->data_vencimento = $clienteDb['data_vencimento'];
-            $cliente->unidade_consumidora = $clienteDb['unidade_consumidora'];
-            $cliente->kwh = $clienteDb['kwh'];
-            $cliente->valor_total = $clienteDb['valor_total'];
-            $listaUsuarios[] = $cliente;
-        }
-        return $listaUsuarios;
+
+        return $allClientes;
       }
     }
     public function update(){}
