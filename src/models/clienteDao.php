@@ -1,5 +1,5 @@
 <?php 
- require './src/entities/Cliente.php';
+ require '../entities/cliente.php';
 
 class ClienteDao{
     private $pdo;
@@ -9,16 +9,38 @@ class ClienteDao{
 
     
     public function create($cliente){
-        $sql = $this->pdo->prepare("INSERT INTO usuarios (nome,endereco) VALUES (:nome,:endereco)");
+
+       /* public $id;
+        public $nome;
+        public $endereco;
+        public $cep;
+        public $bairro;
+        public $cpf;
+        public $nascimento;
+        public $data_vencimento;
+        public $unidade_consumidora;
+        public $kwh;
+        public $valor_total;*/
+
+        $sql = $this->pdo->prepare("INSERT INTO clientes (nome,endereco,cep,bairro,cpf,nascimento,data_vencimento,sexo,unidade_consumidora,kwh,valor_total) VALUES (:nome,:endereco,:cep,:bairro,:cpf,:nascimento,:data_vencimento,:sexo,:unidade_consumidora,:kwh,:valor_total)");
         $sql->bindValue(':nome',$cliente->nome);
         $sql->bindValue(':endereco',$cliente->endereco);
+        $sql->bindValue(':cep',$cliente->cep);
+        $sql->bindValue(':bairro',$cliente->bairro);
+        $sql->bindValue(':cpf',$cliente->cpf);
+        $sql->bindValue(':nascimento',$cliente->nascimento);
+        $sql->bindValue(':data_vencimento',$cliente->data_vencimento);
+        $sql->bindValue(':sexo',$cliente->sexo);
+        $sql->bindValue(':unidade_consumidora',$cliente->unidade_consumidora);
+        $sql->bindValue(':kwh',$cliente->kwh);
+        $sql->bindValue(':valor_total',$cliente->valor_total);
         $sql->execute();
 
 
 
     }
-    public function read(){
-      $sql = $this->pdo->query("SELECT * FROM cliente");
+   public function read(){
+      $sql = $this->pdo->query("SELECT * FROM clientes");
       if($sql->rowCount()>0){
         $listaUsuarios = array();
         $allClientes = $sql->fetchAll();

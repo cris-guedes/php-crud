@@ -11,6 +11,7 @@ class Cliente{
     public $unidade_consumidora;
     public $kwh;
     public $valor_total;
+    public $sexo;
  
 }
 

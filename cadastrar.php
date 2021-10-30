@@ -1,4 +1,7 @@
 <?php require './src/partials/header.php' ?>
+
+
+
 <header class="display-2 headerCadastro"> Cadastro </header>
 <div class="formArea">
     <form class="row g-3" method="POST" action="./src/actions/create.php">
@@ -7,12 +10,12 @@
             <input type="text" name="nome"class="form-control" id="inputNome">
         </div>
         <div class="col-md-4">
-            <label for="inputCpf" name="cpf" class="form-label">Cpf</label>
-            <input type="text" class="form-control" id="inputCpf">
+            <label for="inputCpf" class="form-label">Cpf</label>
+            <input type="text"  name="cpf" class="form-control" id="inputCpf">
         </div>
         <div class="col-4">
-            <label for="inputNascimento" name="nascimento" class="form-label">Nascimento</label>
-            <input type="date" class="form-control" id="inputNascimento" >
+            <label for="inputNascimento"  class="form-label">Nascimento</label>
+            <input type="date" name="nascimento" class="form-control" id="inputNascimento" >
         </div>
         <div class="col-6">
             <label for="inputEndereco" class="form-label">Endereço</label>
@@ -28,22 +31,22 @@
         </div>
         <div class="col-md-6">
             <label for="inputUnidadeConsumidora" class="form-label">Unidade Consumidora</label>
-            <input type="number" name="unidadeConsumidora" class="form-control" id="inputUnidadeConsumidora">
+            <input type="number" name="unidade_consumidora" class="form-control" id="inputUnidadeConsumidora">
         </div>
        
         <div class="col-md-4">
             <label for="inputDataVencimento" class="form-label">Data Vencimento</label>
-            <input type="date" name="dataVencimento" class="form-control" id="inputDataVencimento">
+            <input type="date" name="data_vencimento" class="form-control" id="inputDataVencimento">
         </div>
        
       
         <div class="col-md-8">
             <label for="inputConsumo" class="form-label">Consumo</label>
-            <input type="number" name="consumo" class="form-control" id="inputConsumo">
+            <input type="number" name="kwh" class="form-control" id="inputConsumo">
         </div>
         <div class="col-md-12">
             <label for="inputTotalPagar" class="form-label">Total Pagar</label>
-            <input type="number" name="totalPagar" class="form-control" id="inputTotalPagar">
+            <input type="number" name="valor_total" class="form-control" id="inputTotalPagar">
         </div>
         <div class="col-10">
             <div class="form-radio">
