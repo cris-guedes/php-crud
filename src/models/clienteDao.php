@@ -1,15 +1,14 @@
 <?php 
+ $_DIR = $_SERVER['DOCUMENT_ROOT'];
+ require_once "$_DIR/php-crud/config.php";
+ require_once "$_DIR/php-crud/src/entities/cliente.php";
  
 
 class ClienteDao{
-    private $pdo;
-    public function __construct(PDO $driver){
-        $this->pdo =$driver;
-    }
-
     
+   
     public function create(Cliente $cliente){
-
+        global $pdo;
        /* public $id;
         public $nome;
         public $endereco;
@@ -22,7 +21,7 @@ class ClienteDao{
         public $kwh;
         public $valor_total;*/
 
-        $sql = $this->pdo->prepare("INSERT INTO clientes (nome,endereco,cep,bairro,cpf,nascimento,data_vencimento,sexo,unidade_consumidora,kwh,valor_total) VALUES (:nome,:endereco,:cep,:bairro,:cpf,:nascimento,:data_vencimento,:sexo,:unidade_consumidora,:kwh,:valor_total)");
+        $sql = $pdo->prepare("INSERT INTO clientes (nome,endereco,cep,bairro,cpf,nascimento,data_vencimento,sexo,unidade_consumidora,kwh,valor_total) VALUES (:nome,:endereco,:cep,:bairro,:cpf,:nascimento,:data_vencimento,:sexo,:unidade_consumidora,:kwh,:valor_total)");
         $sql->bindValue(':nome',$cliente->nome);
         $sql->bindValue(':endereco',$cliente->endereco);
         $sql->bindValue(':cep',$cliente->cep);
@@ -40,16 +39,38 @@ class ClienteDao{
 
     }
    public function read(){
-      $sql = $this->pdo->query("SELECT * FROM clientes");
+        global $pdo;
+      $sql = $pdo->query("SELECT * FROM clientes");
       if($sql->rowCount()>0){
-        $allClientes = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $allClientes = $sql->fetchAll();
+        $listaClientes = array();
+        foreach($allClientes as $clienteDb){
+            $cliente = new Cliente();
+            $cliente->id = $clienteDb['id'];
+            $cliente->nome = $clienteDb['nome'];
+            $cliente->endereco = $clienteDb['endereco'];
+            $cliente->cep = $clienteDb['cep'];
+            $cliente->bairro = $clienteDb['bairro'];
+            $cliente->cpf = $clienteDb['cpf'];
+            $cliente->nascimento = $clienteDb['nascimento'];
+            $cliente->data_vencimento = $clienteDb['data_vencimento'];
+            $cliente->unidade_consumidora = $clienteDb['unidade_consumidora'];
+            $cliente->kwh = $clienteDb['kwh'];
+            $cliente->valor_total = $clienteDb['valor_total'];
+            $listaClientes[] = $cliente;
+        }
 
 
-        return $allClientes;
+        return $listaClientes;
       }
     }
     public function update(){}
-    public function delete(){}
+    public function delete($id){
+        global $pdo;
+        $sql= $pdo->prepare("DELETE FROM clientes WHERE id=:id");
+        $sql->bindValue(':id',$id);
+        $sql->execute();
+    }
 
 
 

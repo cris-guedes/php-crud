@@ -1,12 +1,11 @@
 <?php
-require '../entities/cliente.php';
-require '../../config.php';
-require '../models/clienteDao.php';
+ $_DIR = $_SERVER['DOCUMENT_ROOT'];
+ require_once "$_DIR/php-crud/config.php";
+ require_once "$_DIR/php-crud/src/models/clienteDao.php";
 
 if (isset($_POST['nome'])) {
     $cliente = new Cliente();
     $dao = new ClienteDao($pdo);
-
     $cliente->nome = $_POST['nome'];
     $cliente->endereco = $_POST['endereco'];
     $cliente->cep = $_POST['cep'];
@@ -17,8 +16,7 @@ if (isset($_POST['nome'])) {
     $cliente->unidade_consumidora = $_POST['unidade_consumidora'];
     $cliente->kwh = $_POST['kwh'];
     $cliente->valor_total = $_POST['valor_total'];
-
     $dao->create($cliente);
-
 }
-header("Location: ../../index.php");
+
+?>

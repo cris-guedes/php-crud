@@ -5,10 +5,11 @@
     "user" => "root",
     "password" => "root" 
 ];
+global $pdo;
 
 extract($config);
 try{
- $pdo = new PDO("mysql:dbname=".$dbname.";host=".$host,$user,$password);
+  $pdo = new PDO("mysql:dbname=".$dbname.";host=".$host,$user,$password);
 }catch(PDOEXception $e){
     echo $e->getMessage();
 }  
