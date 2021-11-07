@@ -1,18 +1,34 @@
 <?php
-
-require './src/models/ClienteDao.php';
-
-
+require './env.php';
+require "$ENV_DIR/src/models/clienteDao.php";
+require "$ENV_DIR/src/entities/cliente.php";
+require "$ENV_DIR/src/pdo.php";
 $clienteDao =  new ClienteDao($pdo);
-$listaClientes = $clienteDao->read();
-print_r( $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+$allClientes = $clienteDao->read();
+$listaClientes = array();
+foreach($allClientes as $clienteDb){
+    $cliente = new Cliente();
+    $cliente->id = $clienteDb['id'];
+    $cliente->nome = $clienteDb['nome'];
+    $cliente->endereco = $clienteDb['endereco'];
+    $cliente->cep = $clienteDb['cep'];
+    $cliente->bairro = $clienteDb['bairro'];
+    $cliente->cpf = $clienteDb['cpf'];
+    $cliente->nascimento = $clienteDb['nascimento'];
+    $cliente->data_vencimento = $clienteDb['data_vencimento'];
+    $cliente->unidade_consumidora = $clienteDb['unidade_consumidora'];
+    $cliente->kwh = $clienteDb['kwh'];
+    $cliente->valor_total = $clienteDb['valor_total'];
+    $listaClientes[] = $cliente;
+}
+ 
 
 ?>
-<?php require './src/partials/header.php' ?>
+<?php require "$ENV_DIR/src/template/header.php" ?>
 <header class="display-2 headerHome" > Lista De Clientes </header>
 <div class="homeArea">
-<a href="cadastrar.php"><button type="button" class="btn btn-success">Cadastrar Cliente ➕</button></a>
-    <table class="table table-dark table-hover table-bordered">
+<a href=<?= "$ENV_URL_REQUEST/cadastrar.php"?>><button type="button" class="btn btn-success">Cadastrar Cliente ➕</button></a>
+    <table class="table table-dark table-hover table-bordered table-responsive">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -31,7 +47,7 @@ print_r( $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
         </thead>
         <tbody>
             <?php foreach ($listaClientes as $cliente) : ?>
-                <tr>
+                <tr scope="row">
                     <td><?= $cliente->id; ?></td>
                     <td><?= $cliente->nome; ?></td>
                     <td><?= $cliente->endereco; ?></td>
@@ -44,8 +60,8 @@ print_r( $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
                     <td><?= $cliente->kwh; ?></td>
                     <td><?= $cliente->valor_total; ?></td>
                     <td>
-                        <a href="./src/actions/update.php?id=<?= $cliente->id?>"><button type="button" class="btn btn-primary ">Editar</button></a>
-                        <a href="./src/actions/delete.php?id=<?= $cliente->id?>"><button type="button" class="btn btn-danger">Excluir</button></a>
+                        <a href="<?= $ENV_URL_REQUEST?>/atualizar.php?id=<?= $cliente->id?>"><button type="button" class="btn btn-primary ">Editar</button></a>
+                        <a href="<?= $ENV_URL_REQUEST?>/src/actions/delete.php?id=<?= $cliente->id?>" ><button type="button" class="btn btn-danger">Excluir</button></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -53,4 +69,4 @@ print_r( $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
     </table>
 </div>
 
-<?php require './src/partials/footer.php' ?>
+<?php require "$ENV_DIR/src/template/footer.php" ?>

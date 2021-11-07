@@ -1,11 +1,13 @@
 <?php
+
    $config =[
     "dbname" => "consumo_energia",
     "host" => "localhost",
     "user" => "root",
     "password" => "root" 
 ];
-global $pdo;
+
+
 
 extract($config);
 try{

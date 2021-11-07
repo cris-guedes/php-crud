@@ -1,7 +1,8 @@
 <?php
- $_DIR = $_SERVER['DOCUMENT_ROOT'];
- require_once "$_DIR/php-crud/config.php";
- require_once "$_DIR/php-crud/src/models/clienteDao.php";
+require_once "../../env.php";
+ require "$ENV_DIR/src/entities/cliente.php";
+ require "$ENV_DIR/src/models/clienteDao.php";
+ require "$ENV_DIR/src/pdo.php";
 
 if (isset($_POST['nome'])) {
     $cliente = new Cliente();
@@ -15,8 +16,12 @@ if (isset($_POST['nome'])) {
     $cliente->data_vencimento = $_POST['data_vencimento'];
     $cliente->unidade_consumidora = $_POST['unidade_consumidora'];
     $cliente->kwh = $_POST['kwh'];
+    $cliente->sexo =$_POST['sexo'];
     $cliente->valor_total = $_POST['valor_total'];
-    $dao->create($cliente);
+    $status= $dao->create($cliente);
+  
+    header("Location: ../../cadastrar.php?status=$status");
 }
+   
 
 ?>
